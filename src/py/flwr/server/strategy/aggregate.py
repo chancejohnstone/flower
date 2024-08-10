@@ -364,3 +364,48 @@ def _aggregate_n_closest_weights(
         )[:beta_closest]
         aggregated_weights.append(np.mean(beta_closest_weights, axis=0))
     return aggregated_weights
+
+def hardthreshold(weights_all, num_keep: int) -> NDArrays:
+    # np.set_printoptions(threshold=np.inf)
+    weights_prime=weights_all[0]
+    # print(weights_prime)
+    if num_keep > len(weights_prime):
+        raise ValueError("The number of parameters kept cannot be greater than the length of the vector.")
+        
+    # Compute the magnitudes
+    magnitudes = np.abs(weights_prime)
+    
+    # Get the k-th largest value in the vector
+    threshold = np.partition(magnitudes, -num_keep)[-num_keep]
+    
+    # Create a new vector where values below the threshold are set to zero
+    params = np.where(magnitudes >= threshold, weights_prime, 0)
+    
+    return params
+    
+def aggregate_hardthreshold(
+        results: List[Tuple[NDArrays, int]], num_keep: int) -> NDArrays:
+    """
+    Applies hard thresholding to keep only the k largest weights in a client-weight vector. Fed-HT (Fed-IterHT) can be 
+    found at https://arxiv.org/abs/2101.00052
+    """
+    if num_keep <= 0:
+        raise ValueError("k must be a positive integer.")
+        
+    """Compute weighted average."""
+    # Calculate the total number of examples used during training
+    num_examples_total = sum(num_examples for (_, num_examples) in results)
+
+    # Create a list of weights, each multiplied by the related number of examples
+    weighted_weights = [
+        [layer * num_examples for layer in weights] for weights, num_examples in results
+    ]
+        
+    # Create a list of weights and perform hardthresholding
+    hold = [reduce(np.add, layer_updates) / num_examples_total for layer_updates in zip(*weighted_weights)]
+    params = [hardthreshold(layer_updates, num_keep) for layer_updates in zip(*hold)]
+    
+    # result = np.array([params, hold[1]], dtype=object)
+    result: NDArrays = [np.array(params), hold[1]]
+    
+    return result
