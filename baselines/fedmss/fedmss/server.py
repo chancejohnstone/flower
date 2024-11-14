@@ -1,7 +1,7 @@
 """Generate server for fedht baseline."""
 
 from typing import Dict
-
+import pickle
 import torch
 
 from fedmss.utils import set_model_params, get_model_parameters
@@ -25,6 +25,12 @@ def get_evaluate_fn(testloader, model, cfg):
         X_test, y_test = testloader
         loss = log_loss(y_test, model.predict_proba(X_test))
         accuracy = model.score(X_test, y_test)
+
+        # save model
+        filename='model.pkl'
+        with open(filename, "wb") as file:
+            pickle.dump(model, file)
+
         return loss, {"accuracy": accuracy}
 
     return evaluate

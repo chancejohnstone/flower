@@ -2,7 +2,7 @@
 num_clients: 2 # total number of clients
 num_classes: 2 # binary classification
 num_features: 13 # total number of features
-num_local_epochs: 1 # number of local epochs
+num_local_epochs: 3 # number of local epochs
 num_rounds: 50
 learning_rate: 0.01
 penalty: .0001

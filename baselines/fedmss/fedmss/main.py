@@ -7,6 +7,7 @@ import flwr as fl
 import hydra
 
 import numpy as np
+import pandas as pd
 from flwr.common import NDArrays, ndarrays_to_parameters
 from flwr.server.strategy.strategy import Strategy
 from omegaconf import DictConfig
@@ -15,8 +16,7 @@ from sklearn.model_selection import train_test_split, KFold
 from fedmss.client import generate_client_fn_ucihd
 from fedmss.fedht import FedHT
 from fedmss.server import fit_round, get_evaluate_fn
-from fedmss.utils import create_log_reg_and_instantiate_parameters, get_model_parameters
-from ucimlrepo import fetch_ucirepo 
+from fedmss.utils import create_log_reg_and_instantiate_parameters, get_model_parameters, load_data, exhaustive, round_int
 
 @hydra.main(config_path="conf", config_name="base_ucihd", version_base=None)
 def main(cfg: DictConfig):
@@ -32,7 +32,6 @@ def main(cfg: DictConfig):
 
     # this vs. setting in cfg; what is preferred?
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-
     if cfg.data == "ucihd":
 
         # load UCI-HD data
@@ -40,18 +39,22 @@ def main(cfg: DictConfig):
         num_classes = 2 # binary classification
         
         # fetch dataset 
-        heart_disease = fetch_ucirepo(id=45) 
+        # heart_disease = fetch_ucirepo(id=45) 
         
-        # data (as pandas dataframes) 
-        Xall = heart_disease.data.features 
-        yall = heart_disease.data.targets 
+        # # data (as pandas dataframes) 
+        # Xall = heart_disease.data.features 
+        # yall = heart_disease.data.targets 
 
-        mask = np.isnan(Xall).any(axis=1)
+        # mask = np.isnan(Xall).any(axis=1)
 
-        # Filter out rows with NaN values from both X and y
-        X = np.array(Xall[~mask])
-        y = np.array(yall[~mask])
-        y = y > 0
+        # # Filter out rows with NaN values from both X and y
+        # X = np.array(Xall[~mask])
+        # y = np.array(yall[~mask])
+        # y = y > 0
+
+        # load UCI-HD dataset
+        X, y, names = load_data()
+        y = np.array(y)
 
         # Split the data into training and testing sets (80% train, 20% test)
         X_train_all, X_test, y_train_all, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
@@ -121,7 +124,7 @@ def main(cfg: DictConfig):
 
     # # start simulation
     random.seed(2025)
-    hist_mnist = fl.simulation.start_simulation(
+    hist_ucihd = fl.simulation.start_simulation(
         client_fn=client_fn,
         num_clients=cfg.num_clients,
         config=fl.server.ServerConfig(num_rounds=cfg.num_rounds),
@@ -131,6 +134,26 @@ def main(cfg: DictConfig):
             "num_gpus": cfg.client_resources.num_gpus,
         },
     )
+
+    # import final non-integer FL model
+    model_file = 'model.pkl'
+    with open(model_file, 'rb') as file:
+        model = pickle.load(file)
+
+    results = get_model_parameters(model, cfg)
+    index = np.array(np.where(np.abs(results[0][0]) > 0)[0]).astype(int).flatten()
+
+    combinations, loss, accuracy = exhaustive(test_dataset, model, index, cfg)
+    top_ind = np.argmin(loss)
+    top_model = combinations[top_ind]
+    params_int = round_int(results, top_model, index)
+    # print(params_int)
+
+    int_index = np.array(np.where(np.abs(params_int[0][0]) > 0)[0]).astype(int).flatten()
+    # print(int_index)
+    print(np.column_stack((np.array(names)[int_index], np.array(params_int[0][0])[int_index])))
+
+    # print(int_model_params)
 
     if cfg.iterht:
         iterstr = "iter"
@@ -152,7 +175,7 @@ def main(cfg: DictConfig):
     )
 
     with open(filename, "wb") as file:
-        pickle.dump(hist_mnist, file)
+        pickle.dump(hist_ucihd, file)
 
 
 if __name__ == "__main__":
