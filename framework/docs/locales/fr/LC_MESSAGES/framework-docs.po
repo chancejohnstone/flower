@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Flower Docs\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-12-09 00:34+0000\n"
+"POT-Creation-Date: 2025-02-06 01:09+0000\n"
 "PO-Revision-Date: 2023-09-05 17:54+0000\n"
 "Last-Translator: Charles Beauville <charles@flower.ai>\n"
 "Language: fr\n"
@@ -13,7 +13,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.16.0\n"
+"Generated-By: Babel 2.17.0\n"
 
 #: ../../source/contributor-explanation-public-and-private-apis.rst:2
 msgid "Public and private APIs"
@@ -738,6 +738,7 @@ msgstr ""
 "install``)."
 
 #: ../../source/contributor-how-to-install-development-versions.rst:14
+#, python-brace-format
 msgid ""
 "``flwr = { version = \"1.0.0a0\", allow-prereleases = true }`` (without "
 "extras)"
@@ -746,6 +747,7 @@ msgstr ""
 "extras)"
 
 #: ../../source/contributor-how-to-install-development-versions.rst:15
+#, python-brace-format
 msgid ""
 "``flwr = { version = \"1.0.0a0\", allow-prereleases = true, extras = "
 "[\"simulation\"] }`` (with extras)"
@@ -762,10 +764,12 @@ msgstr ""
 "via ``pyproject.toml`` :"
 
 #: ../../source/contributor-how-to-install-development-versions.rst:20
+#, python-brace-format
 msgid "``flwr = { path = \"../../\", develop = true }`` (without extras)"
 msgstr "``flwr = { path = \"../../\", develop = true }`` (sans extras)"
 
 #: ../../source/contributor-how-to-install-development-versions.rst:21
+#, python-brace-format
 msgid ""
 "``flwr = { path = \"../../\", develop = true, extras = [\"simulation\"] "
 "}`` (with extras)"
@@ -778,7 +782,7 @@ msgid "Install ``flwr`` from a local wheel file via ``pyproject.toml``:"
 msgstr "Installez ``flwr`` à partir d'un fichier local via ``pyproject.toml`` :"
 
 #: ../../source/contributor-how-to-install-development-versions.rst:25
-#, fuzzy
+#, fuzzy, python-brace-format
 msgid ""
 "``flwr = { path = \"../../dist/flwr-1.8.0-py3-none-any.whl\" }`` (without"
 " extras)"
@@ -787,7 +791,7 @@ msgstr ""
 "extras)"
 
 #: ../../source/contributor-how-to-install-development-versions.rst:26
-#, fuzzy
+#, fuzzy, python-brace-format
 msgid ""
 "``flwr = { path = \"../../dist/flwr-1.8.0-py3-none-any.whl\", extras = "
 "[\"simulation\"] }`` (with extras)"
@@ -2291,6 +2295,7 @@ msgid ""
 msgstr ""
 
 #: ../../source/contributor-tutorial-contribute-on-github.rst:372
+#, python-brace-format
 msgid ""
 "Where ``<type>`` needs to be in ``{ci, fix, feat, docs, refactor, "
 "break}``, ``<project>`` should be in ``{framework, baselines, datasets, "
@@ -4697,6 +4702,7 @@ msgid ""
 msgstr ""
 
 #: ../../source/explanation-differential-privacy.rst:42
+#, python-brace-format
 msgid ""
 "\\small\n"
 "P[M(D_{1} \\in A)] \\leq e^{\\epsilon} P[M(D_{2} \\in A)] + \\delta"
@@ -6902,6 +6908,7 @@ msgid "VM Networking"
 msgstr ""
 
 #: ../../source/how-to-run-flower-on-azure.rst:85
+#, python-brace-format
 msgid ""
 "During the execution of the Flower application, the server VM "
 "(``SuperLink``) will be responsible to orchestrate the execution of the "
@@ -7876,6 +7883,7 @@ msgstr ""
 "``start_client``)"
 
 #: ../../source/how-to-upgrade-to-flower-1.0.rst:33
+#, python-brace-format
 msgid ""
 "``flwr = { version = \"^1.0.0\", extras = [\"simulation\"] }`` (when "
 "using ``start_simulation``)"
@@ -7958,6 +7966,7 @@ msgstr ""
 " ``start_simulation``. Voici un exemple :"
 
 #: ../../source/how-to-upgrade-to-flower-1.0.rst:65
+#, python-brace-format
 msgid ""
 "Flower 0.19: ``start_server(..., config={\"num_rounds\": 3, "
 "\"round_timeout\": 600.0}, ...)``"
@@ -9144,7 +9153,7 @@ msgstr ""
 msgid "Arguments"
 msgstr "Amélioration de la documentation"
 
-#: ../../flwr install:1 log:1 ls:1 new:1 run:1 stop:1
+#: ../../flwr install:1 log:1 login:1 ls:1 new:1 run:1 stop:1
 #, fuzzy
 msgid "Optional argument"
 msgstr "Améliorations facultatives"
@@ -9186,6 +9195,20 @@ msgstr ""
 
 #: ../../flwr log:1
 msgid "Name of the federation to run the app on"
+msgstr ""
+
+#: ../../flwr login:1
+#, fuzzy
+msgid "Login to Flower SuperLink."
+msgstr "flower-superlink"
+
+#: ../../flwr login:1 run:1
+#, fuzzy
+msgid "Path of the Flower App to run."
+msgstr "Chargement des données"
+
+#: ../../flwr login:1
+msgid "Name of the federation to login into."
 msgstr ""
 
 #: ../../flwr ls:1
@@ -9277,11 +9300,6 @@ msgid ""
 "Use `--stream` with `flwr run` to display logs; logs are not streamed by "
 "default."
 msgstr ""
-
-#: ../../flwr run:1
-#, fuzzy
-msgid "Path of the Flower App to run."
-msgstr "Chargement des données"
 
 #: ../../flwr run:1
 msgid "Name of the federation to run the app on."
@@ -11939,12 +11957,14 @@ msgid "Return -1 on failure."
 msgstr ""
 
 #: flwr.common.EventType.format:1 of
+#, python-brace-format
 msgid ""
 "Return a formatted version of S, using substitutions from args and "
 "kwargs. The substitutions are identified by braces ('{' and '}')."
 msgstr ""
 
 #: flwr.common.EventType.format_map:1 of
+#, python-brace-format
 msgid ""
 "Return a formatted version of S, using substitutions from mapping. The "
 "substitutions are identified by braces ('{' and '}')."
@@ -15733,6 +15753,7 @@ msgid ""
 msgstr ""
 
 #: flwr.server.strategy.fedprox.FedProx:9 of
+#, python-brace-format
 msgid ""
 "\\\\frac{\\\\mu}{2} || w - w^t ||^2\n"
 "\n"
@@ -17205,6 +17226,7 @@ msgstr ""
 "[#1090](https://github.com/adap/flower/pull/1090))"
 
 #: ../../source/ref-changelog.md:56
+#, python-brace-format
 msgid ""
 "SuperExec has been integrated into SuperLink, enabling SuperLink to "
 "directly manage ServerApp processes (`flwr-serverapp`). The `flwr` CLI "
@@ -22997,6 +23019,7 @@ msgstr ""
 "([#1317](https://github.com/adap/flower/pull/1317))"
 
 #: ../../source/ref-changelog.md:1157
+#, python-brace-format
 msgid ""
 "Instead of a config dictionary `{\"num_rounds\": 3, \"round_timeout\": "
 "600.0}`, `start_server` and `start_simulation` now expect a configuration"
@@ -24374,7 +24397,7 @@ msgstr ""
 "*agrégées* pour que le serveur puisse en garder la trace."
 
 #: ../../source/ref-changelog.md:1442
-#, fuzzy
+#, fuzzy, python-brace-format
 msgid ""
 "Strategy implementations should migrate their `aggregate_fit` and "
 "`aggregate_evaluate` methods to the new return type (e.g., by simply "
@@ -28612,6 +28635,7 @@ msgid "Where's the accuracy?"
 msgstr "Où est la précision ?"
 
 #: ../../source/tutorial-series-get-started-with-flower-pytorch.ipynb:707
+#, python-brace-format
 msgid ""
 "You may have noticed that all metrics except for ``losses_distributed`` "
 "are empty. Where did the ``{\"accuracy\": float(accuracy)}`` go?"
@@ -29221,7 +29245,7 @@ msgstr ""
 "chose d'autre, comme la régression linéaire classique."
 
 #: ../../source/tutorial-series-what-is-federated-learning.ipynb:41
-msgid "|6102f514742c4211b093aae3a5a74e51|"
+msgid "|4c2a70a5a4c54326a4f43d4ea4809b2a|"
 msgstr ""
 
 #: ../../source/tutorial-series-what-is-federated-learning.ipynb:109
@@ -29240,7 +29264,7 @@ msgstr ""
 " Go."
 
 #: ../../source/tutorial-series-what-is-federated-learning.ipynb:53
-msgid "|24080db3b13d4b0c8546096de73ac82a|"
+msgid "|8a1c01e2518f475dbd9912a8e9ed70e5|"
 msgstr ""
 
 #: ../../source/tutorial-series-what-is-federated-learning.ipynb:111
@@ -29272,7 +29296,7 @@ msgstr ""
 "chanson."
 
 #: ../../source/tutorial-series-what-is-federated-learning.ipynb:67
-msgid "|9087a1f0e9ab41c083f5209a3f17e600|"
+msgid "|aa38987dee0542e586698a7079d71b56|"
 msgstr ""
 
 #: ../../source/tutorial-series-what-is-federated-learning.ipynb:113
@@ -29293,7 +29317,7 @@ msgstr ""
 " données pour la même tâche."
 
 #: ../../source/tutorial-series-what-is-federated-learning.ipynb:79
-msgid "|a5d1853a0b3c44d4bdd408d15a89e7ac|"
+msgid "|ef372f8b094f4564b6a1bee58e3f6de3|"
 msgstr ""
 
 #: ../../source/tutorial-series-what-is-federated-learning.ipynb:115
@@ -29315,7 +29339,7 @@ msgstr ""
 "cloud."
 
 #: ../../source/tutorial-series-what-is-federated-learning.ipynb:91
-msgid "|8e6e9164d7414c39bf37f67e2fda59bd|"
+msgid "|da822ab3c4534088b1efd3fadf288ad6|"
 msgstr ""
 
 #: ../../source/tutorial-series-what-is-federated-learning.ipynb:117
@@ -29336,7 +29360,7 @@ msgstr ""
 "appuyés."
 
 #: ../../source/tutorial-series-what-is-federated-learning.ipynb:103
-msgid "|e8b1d08849514de1b09fee325db970d0|"
+msgid "|ff690226498840219d58b47b64943334|"
 msgstr ""
 
 #: ../../source/tutorial-series-what-is-federated-learning.ipynb:119
@@ -29362,7 +29386,7 @@ msgstr ""
 " sur un serveur centralisé."
 
 #: ../../source/tutorial-series-what-is-federated-learning.ipynb:138
-msgid "|ca0b3cb207164665b5bef1d869c37dff|"
+msgid "|51237d57c0c44d2fa0ef737d837ff67f|"
 msgstr ""
 
 #: ../../source/tutorial-series-what-is-federated-learning.ipynb:173
@@ -29381,7 +29405,7 @@ msgstr ""
 "suffisantes pour former un bon modèle."
 
 #: ../../source/tutorial-series-what-is-federated-learning.ipynb:150
-msgid "|977cb114b97047329a7bb908afbac2cd|"
+msgid "|be342a639932465c84472543db0e6a04|"
 msgstr ""
 
 #: ../../source/tutorial-series-what-is-federated-learning.ipynb:175
@@ -29612,7 +29636,7 @@ msgstr ""
 "partir d'un point de contrôle précédemment sauvegardé."
 
 #: ../../source/tutorial-series-what-is-federated-learning.ipynb:210
-msgid "|9f497b02d2634af2925a65244cc0eb1b|"
+msgid "|ad194dfd10bc4705a8215728ec9715b4|"
 msgstr ""
 
 #: ../../source/tutorial-series-what-is-federated-learning.ipynb:307
@@ -29647,7 +29671,7 @@ msgstr ""
 "rendements décroissants."
 
 #: ../../source/tutorial-series-what-is-federated-learning.ipynb:225
-msgid "|938ae2cd4fae49ce9292e6e2d9bd880d|"
+msgid "|60df8e245a5a4be5812d2fd9b0761a67|"
 msgstr ""
 
 #: ../../source/tutorial-series-what-is-federated-learning.ipynb:309
@@ -29680,7 +29704,7 @@ msgstr ""
 "données locales, ou même de quelques étapes (mini-batchs)."
 
 #: ../../source/tutorial-series-what-is-federated-learning.ipynb:240
-msgid "|47cd7c6cb4094846833faff5b05e0d46|"
+msgid "|be2c5fd91e5646099723459ce066648b|"
 msgstr ""
 
 #: ../../source/tutorial-series-what-is-federated-learning.ipynb:311
@@ -29711,7 +29735,7 @@ msgstr ""
 " l'entraînement local."
 
 #: ../../source/tutorial-series-what-is-federated-learning.ipynb:255
-msgid "|c90d6613b0a34a42bf3023ca5a81c8e2|"
+msgid "|dbef6a6896ec4c6ebf0faba8ed1fcba7|"
 msgstr ""
 
 #: ../../source/tutorial-series-what-is-federated-learning.ipynb:313
@@ -29771,7 +29795,7 @@ msgstr ""
 "times as much as each of the 100 examples."
 
 #: ../../source/tutorial-series-what-is-federated-learning.ipynb:273
-msgid "|91c29c3c9b1b411590de3983d94ed76a|"
+msgid "|0e3542f2399d4d7796117fa543dc1003|"
 msgstr ""
 
 #: ../../source/tutorial-series-what-is-federated-learning.ipynb:315
@@ -29915,7 +29939,7 @@ msgstr ""
 "quel cadre de ML et n'importe quel langage de programmation."
 
 #: ../../source/tutorial-series-what-is-federated-learning.ipynb:334
-msgid "|e4adf0f92ebf4c3d9e6e64355204f897|"
+msgid "|cf8235b60d424032b9519ed03be4175e|"
 msgstr ""
 
 #: ../../source/tutorial-series-what-is-federated-learning.ipynb:340
@@ -43402,5 +43426,47 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "|dd729f8776d640ffb136545f3f26210f|"
+#~ msgstr ""
+
+#~ msgid "|6102f514742c4211b093aae3a5a74e51|"
+#~ msgstr ""
+
+#~ msgid "|24080db3b13d4b0c8546096de73ac82a|"
+#~ msgstr ""
+
+#~ msgid "|9087a1f0e9ab41c083f5209a3f17e600|"
+#~ msgstr ""
+
+#~ msgid "|a5d1853a0b3c44d4bdd408d15a89e7ac|"
+#~ msgstr ""
+
+#~ msgid "|8e6e9164d7414c39bf37f67e2fda59bd|"
+#~ msgstr ""
+
+#~ msgid "|e8b1d08849514de1b09fee325db970d0|"
+#~ msgstr ""
+
+#~ msgid "|ca0b3cb207164665b5bef1d869c37dff|"
+#~ msgstr ""
+
+#~ msgid "|977cb114b97047329a7bb908afbac2cd|"
+#~ msgstr ""
+
+#~ msgid "|9f497b02d2634af2925a65244cc0eb1b|"
+#~ msgstr ""
+
+#~ msgid "|938ae2cd4fae49ce9292e6e2d9bd880d|"
+#~ msgstr ""
+
+#~ msgid "|47cd7c6cb4094846833faff5b05e0d46|"
+#~ msgstr ""
+
+#~ msgid "|c90d6613b0a34a42bf3023ca5a81c8e2|"
+#~ msgstr ""
+
+#~ msgid "|91c29c3c9b1b411590de3983d94ed76a|"
+#~ msgstr ""
+
+#~ msgid "|e4adf0f92ebf4c3d9e6e64355204f897|"
 #~ msgstr ""
 
